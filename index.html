@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Delivery</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #fff3e0;
+            text-align: center;
+        }
+        h1 {
+            color: darkred;
+        }
+        .food {
+            background: white;
+            padding: 15px;
+            margin: 15px auto;
+            width: 250px;
+            border-radius: 10px;
+        }
+        button {
+            background: green;
+            color: white;
+            padding: 8px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Food Delivery Website</h1>
+    <h2>Our Menu</h2>
+
+    <div class="food">
+        <h3>Pizza</h3>
+        <p>Price: ₹150</p>
+        <button onclick="order('Pizza')">Order Now</button>
+    </div>
+
+    <div class="food">
+        <h3>Burger</h3>
+        <p>Price: ₹100</p>
+        <button onclick="order('Burger')">Order Now</button>
+    </div>
+
+    <div class="food">
+        <h3>Dosa</h3>
+        <p>Price: ₹60</p>
+        <button onclick="order('Dosa')">Order Now</button>
+    </div>
+
+    <script>
+        function order(food) {
+            alert(food + " ordered successfully!");
+        }
+    </script>
+
+</body>
+</html>
