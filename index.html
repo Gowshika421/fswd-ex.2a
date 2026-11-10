@@ -54,28 +54,33 @@
     border-radius: 10px;
   }
 
-  /* Menu items in a horizontal grid (3 per row) */
+  /* Menu: always 2 items in each row */
   .menu {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 15px;
   }
+
+  /* Each item card: emoji on the left, details on the right */
   .item {
-    width: calc(33.33% - 10px);
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 14px;
-    text-align: center;
+    padding: 12px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
   }
   .item .emoji {
-    font-size: 45px;
+    font-size: 48px;
+    width: 70px;
+    text-align: center;
+  }
+  .item .details {
+    flex: 1;
   }
   .item h3 {
-    margin: 6px 0;
+    margin: 0 0 4px 0;
     font-size: 16px;
   }
   .item p {
@@ -83,16 +88,20 @@
     font-size: 13px;
     margin: 0 0 8px 0;
   }
+  .item .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .price {
     font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: 17px;
   }
   .add-btn {
     background-color: #1f6b3a;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 7px 16px;
     border-radius: 6px;
     cursor: pointer;
   }
@@ -198,27 +207,45 @@
     margin-top: 10px;
   }
 
-  /* Tablet: 2 items per row */
-  @media (max-width: 1000px) {
-    .item {
-      width: calc(50% - 8px);
-    }
-  }
-
-  /* Mobile: order panel goes below the menu */
+  /* Tablet and mobile: order panel goes below the menu (menu still 2 per row) */
   @media (max-width: 800px) {
     .container {
       flex-direction: column;
+    }
+    .left {
+      width: 100%;
     }
     .right {
       width: 100%;
     }
   }
 
-  /* Small phone: 1 item per row */
-  @media (max-width: 450px) {
+  /* Small phones: keep 2 per row, but stack emoji above the text to fit */
+  @media (max-width: 520px) {
+    .menu {
+      gap: 8px;
+    }
     .item {
+      flex-direction: column;
+      text-align: center;
+      padding: 10px;
+    }
+    .item .emoji {
+      font-size: 38px;
+      width: auto;
+    }
+    .item .details {
       width: 100%;
+    }
+    .item .bottom {
+      flex-direction: column;
+      gap: 6px;
+    }
+    .item h3 {
+      font-size: 14px;
+    }
+    .item p {
+      display: none;
     }
   }
 </style>
@@ -310,10 +337,14 @@
     for (var i = 0; i < foods.length; i++) {
       html += '<div class="item">';
       html += '<div class="emoji">' + foods[i].emoji + '</div>';
+      html += '<div class="details">';
       html += '<h3>' + foods[i].name + '</h3>';
       html += '<p>' + foods[i].desc + '</p>';
-      html += '<div class="price">Rs. ' + foods[i].price + '</div>';
+      html += '<div class="bottom">';
+      html += '<span class="price">Rs. ' + foods[i].price + '</span>';
       html += '<button class="add-btn" onclick="addToCart(' + foods[i].id + ')">Add</button>';
+      html += '</div>';
+      html += '</div>';
       html += '</div>';
     }
     document.getElementById("menu").innerHTML = html;
