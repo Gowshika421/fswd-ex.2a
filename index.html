@@ -4,8 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Foodie - Online Food Delivery</title>
+<title>Foodie - Food Delivery</title>
 
 <style>
 * {
@@ -119,6 +118,7 @@ nav ul li a {
     padding: 12px 20px;
     border-radius: 6px;
     cursor: pointer;
+    font-size: 14px;
     margin-bottom: 18px;
 }
 
@@ -128,33 +128,24 @@ nav ul li a {
 
 /* Cart */
 .cart {
-    padding: 35px 7%;
+    padding: 30px 7%;
     text-align: center;
 }
 
 .cart h2 {
     color: #ef451c;
-    margin-bottom: 20px;
-}
-
-.cart button {
-    background: #ff5122;
-    color: white;
-    border: none;
-    padding: 5px 12px;
-    cursor: pointer;
-    border-radius: 4px;
+    margin-bottom: 15px;
 }
 
 #cart-items {
-    line-height: 2.5;
+    margin: 15px 0;
+    line-height: 2;
 }
 
 .total {
     color: #ff5122;
     font-size: 22px;
     font-weight: bold;
-    margin-top: 15px;
 }
 
 /* Responsive */
@@ -174,12 +165,17 @@ nav ul li a {
         gap: 15px;
     }
 
-    .food-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .hero h1 {
         font-size: 28px;
+    }
+
+    .food-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .food-card img {
+        height: 140px;
     }
 }
 
@@ -200,12 +196,12 @@ nav ul li a {
     <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#menu">Menu</a></li>
-        <li><a href="#cart">Cart</a></li>
+        <li><a href="#cart">Cart 🛒</a></li>
         <li><a href="#admin">Admin</a></li>
     </ul>
 </nav>
 
-<!-- Hero -->
+<!-- Hero Section -->
 <section class="hero" id="home">
     <h1>Delicious Food Delivered!</h1>
     <p>Order your favourite food online.</p>
@@ -218,8 +214,10 @@ nav ul li a {
 
     <div class="food-container">
 
+        <!-- Chicken Burger -->
         <div class="food-card">
-            <img src="images/burger.jpg" alt="Chicken Burger">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=85"
+                 alt="Chicken Burger">
             <h3>Chicken Burger</h3>
             <p class="price">₹150</p>
             <button onclick="addToCart('Chicken Burger',150)">
@@ -227,8 +225,10 @@ nav ul li a {
             </button>
         </div>
 
+        <!-- Pizza -->
         <div class="food-card">
-            <img src="images/pizza.jpg" alt="Pizza">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=85"
+                 alt="Pizza">
             <h3>Pizza</h3>
             <p class="price">₹250</p>
             <button onclick="addToCart('Pizza',250)">
@@ -236,8 +236,10 @@ nav ul li a {
             </button>
         </div>
 
+        <!-- French Fries -->
         <div class="food-card">
-            <img src="images/fries.jpg" alt="French Fries">
+            <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=85"
+                 alt="French Fries">
             <h3>French Fries</h3>
             <p class="price">₹100</p>
             <button onclick="addToCart('French Fries',100)">
@@ -245,8 +247,10 @@ nav ul li a {
             </button>
         </div>
 
+        <!-- Biriyani -->
         <div class="food-card">
-            <img src="images/biriyani.jpg" alt="Biriyani">
+            <img src="https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=600&q=85"
+                 alt="Biriyani">
             <h3>Biriyani</h3>
             <p class="price">₹180</p>
             <button onclick="addToCart('Biriyani',180)">
@@ -254,8 +258,10 @@ nav ul li a {
             </button>
         </div>
 
+        <!-- Sandwich -->
         <div class="food-card">
-            <img src="images/sandwich.jpg" alt="Sandwich">
+            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=85"
+                 alt="Sandwich">
             <h3>Sandwich</h3>
             <p class="price">₹120</p>
             <button onclick="addToCart('Sandwich',120)">
@@ -263,8 +269,10 @@ nav ul li a {
             </button>
         </div>
 
+        <!-- Salad -->
         <div class="food-card">
-            <img src="images/salad.jpg" alt="Fresh Salad">
+            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=85"
+                 alt="Fresh Salad">
             <h3>Fresh Salad</h3>
             <p class="price">₹130</p>
             <button onclick="addToCart('Fresh Salad',130)">
@@ -275,7 +283,7 @@ nav ul li a {
     </div>
 </section>
 
-<!-- Cart -->
+<!-- Cart Section -->
 <section class="cart" id="cart">
 
     <h2>🛒 Your Shopping Cart</h2>
@@ -293,6 +301,7 @@ nav ul li a {
 <script>
 
 let cart = [];
+let total = 0;
 
 function addToCart(name, price) {
 
@@ -301,14 +310,16 @@ function addToCart(name, price) {
         price: price
     });
 
+    total += price;
+
     displayCart();
+
+    alert(name + " added to cart!");
 }
 
 function displayCart() {
 
     let cartItems = document.getElementById("cart-items");
-
-    let total = 0;
 
     if (cart.length === 0) {
         cartItems.innerHTML = "Your cart is empty.";
@@ -318,11 +329,10 @@ function displayCart() {
 
         cart.forEach((item, index) => {
 
-            total += item.price;
-
             cartItems.innerHTML += `
                 <p>
-                    ${item.name} - ₹${item.price}
+                    ${index + 1}. ${item.name}
+                    - ₹${item.price}
                     <button onclick="removeItem(${index})">
                         Remove
                     </button>
@@ -336,6 +346,8 @@ function displayCart() {
 }
 
 function removeItem(index) {
+
+    total -= cart[index].price;
 
     cart.splice(index, 1);
 
