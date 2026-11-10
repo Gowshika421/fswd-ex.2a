@@ -1,341 +1,413 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foodie - Food Delivery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuickBite Food Delivery</title>
 
 <style>
-* {
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f2;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+  }
 
-body {
-    background: #fff8f1;
-}
-
-/* Navbar */
-nav {
-    background: #ff5122;
+  /* Header */
+  .header {
+    background-color: #154d29;
     color: white;
-    padding: 20px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* Hero */
-.hero {
-    background: #ffdfcc;
-    text-align: center;
-    padding: 65px 20px;
-}
-
-.hero h1 {
-    color: #ef451c;
-    font-size: 38px;
-    margin-bottom: 12px;
-}
-
-.hero p {
-    font-size: 17px;
-}
-
-/* Menu */
-.menu {
-    padding: 40px 7%;
-    text-align: center;
-}
-
-.menu h2 {
-    color: #ef451c;
-    font-size: 30px;
-    margin-bottom: 30px;
-}
-
-.food-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 25px;
-}
-
-.food-card {
-    background: white;
-    border-radius: 12px;
+    padding: 15px 25px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
-    transition: 0.3s;
-}
+  }
+  .header h1 {
+    margin: 0;
+    float: left;
+  }
+  .cart-count {
+    float: right;
+    background-color: #e2412f;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
 
-.food-card:hover {
-    transform: translateY(-7px);
-}
+  /* Main layout */
+  .container {
+    width: 95%;
+    max-width: 1100px;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+  .left {
+    width: 62%;
+    float: left;
+  }
+  .right {
+    width: 33%;
+    float: right;
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
 
-.food-card img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    display: block;
-}
-
-.food-card h3 {
-    margin: 18px 5px 8px;
-    color: #333;
-}
-
-.price {
-    color: #ff5122;
-    font-size: 20px;
+  /* Menu items */
+  .item {
+    width: 44%;
+    float: left;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 8px;
+    text-align: center;
+  }
+  .item .emoji {
+    font-size: 45px;
+  }
+  .item h3 {
+    margin: 6px 0;
+  }
+  .item p {
+    color: #666;
+    font-size: 14px;
+  }
+  .price {
     font-weight: bold;
-    margin-bottom: 13px;
-}
-
-.food-card button {
-    background: #ff5122;
+    font-size: 18px;
+  }
+  .add-btn {
+    background-color: #1f6b3a;
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
+  }
+
+  /* Cart */
+  .cart-row {
+    border-bottom: 1px solid #ddd;
+    padding: 6px 0;
     font-size: 14px;
-    margin-bottom: 18px;
-}
-
-.food-card button:hover {
-    background: #e53e12;
-}
-
-/* Cart */
-.cart {
-    padding: 30px 7%;
-    text-align: center;
-}
-
-.cart h2 {
-    color: #ef451c;
-    margin-bottom: 15px;
-}
-
-#cart-items {
-    margin: 15px 0;
-    line-height: 2;
-}
-
-.total {
-    color: #ff5122;
-    font-size: 22px;
+  }
+  .small-btn {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  .total {
     font-weight: bold;
-}
+    font-size: 18px;
+    margin: 10px 0;
+  }
 
-/* Responsive */
-@media(max-width: 1100px) {
-    .food-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+  /* Form */
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  input, textarea, select {
+    width: 95%;
+    padding: 8px;
+    margin-top: 4px;
+  }
+  .error {
+    color: red;
+    font-size: 13px;
+  }
+  .order-btn {
+    width: 100%;
+    background-color: #e2412f;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
 
-@media(max-width: 700px) {
-    nav {
-        flex-direction: column;
-        gap: 15px;
-    }
+  /* Popup */
+  .popup-bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .popup-box {
+    background-color: white;
+    width: 340px;
+    max-width: 90%;
+    margin: 120px auto;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .tick {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 38px;
+    color: white;
+    background-color: #1f6b3a;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+  }
+  .done-btn {
+    background-color: #1f6b3a;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
 
-    nav ul {
-        gap: 15px;
+  /* Mobile screens */
+  @media (max-width: 800px) {
+    .left, .right {
+      width: 100%;
+      float: none;
     }
-
-    .hero h1 {
-        font-size: 28px;
+    .item {
+      width: 85%;
     }
-
-    .food-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-
-    .food-card img {
-        height: 140px;
-    }
-}
-
-@media(max-width: 400px) {
-    .food-container {
-        grid-template-columns: 1fr;
-    }
-}
+  }
 </style>
 </head>
 
 <body>
 
-<!-- Navbar -->
-<nav>
-    <div class="logo">🍔 Foodie</div>
+  <div class="header">
+    <h1>QuickBite</h1>
+    <div class="cart-count" id="cartCount">0 items</div>
+  </div>
 
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#cart">Cart 🛒</a></li>
-        <li><a href="#admin">Admin</a></li>
-    </ul>
-</nav>
+  <div class="container">
 
-<!-- Hero Section -->
-<section class="hero" id="home">
-    <h1>Delicious Food Delivered!</h1>
-    <p>Order your favourite food online.</p>
-</section>
-
-<!-- Food Menu -->
-<section class="menu" id="menu">
-
-    <h2>Our Food Menu</h2>
-
-    <div class="food-container">
-
-        <!-- Chicken Burger -->
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=85"
-                 alt="Chicken Burger">
-            <h3>Chicken Burger</h3>
-            <p class="price">₹150</p>
-            <button onclick="addToCart('Chicken Burger',150)">
-                Add to Cart
-            </button>
-        </div>
-
-        
-
-        <!-- French Fries -->
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=85"
-                 alt="French Fries">
-            <h3>French Fries</h3>
-            <p class="price">₹100</p>
-            <button onclick="addToCart('French Fries',100)">
-                Add to Cart
-            </button>
-        </div>
-
-        
-
-        <!-- Sandwich -->
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=85"
-                 alt="Sandwich">
-            <h3>Sandwich</h3>
-            <p class="price">₹120</p>
-            <button onclick="addToCart('Sandwich',120)">
-                Add to Cart
-            </button>
-        </div>
-
-        <!-- Salad -->
-        <div class="food-card">
-            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=85"
-                 alt="Fresh Salad">
-            <h3>Fresh Salad</h3>
-            <p class="price">₹130</p>
-            <button onclick="addToCart('Fresh Salad',130)">
-                Add to Cart
-            </button>
-        </div>
-
-    </div>
-</section>
-
-<!-- Cart Section -->
-<section class="cart" id="cart">
-
-    <h2>🛒 Your Shopping Cart</h2>
-
-    <div id="cart-items">
-        Your cart is empty.
+    <!-- Left side: food items -->
+    <div class="left">
+      <h2>Our Menu</h2>
+      <div id="menu"></div>
     </div>
 
-    <p class="total">
-        Total: ₹<span id="total">0</span>
-    </p>
+    <!-- Right side: cart and customer details -->
+    <div class="right">
+      <h2>Your Order</h2>
+      <div id="cartItems">Your cart is empty.</div>
+      <div class="total">Total: <span id="total">Rs. 0</span></div>
 
-</section>
+      <h3>Customer Details</h3>
+
+      <label>Full Name</label>
+      <input type="text" id="name">
+      <div class="error" id="errName"></div>
+
+      <label>Phone Number</label>
+      <input type="text" id="phone" maxlength="10">
+      <div class="error" id="errPhone"></div>
+
+      <label>Delivery Address</label>
+      <textarea id="address" rows="3"></textarea>
+      <div class="error" id="errAddress"></div>
+
+      <label>Payment Method</label>
+      <select id="payment">
+        <option>Cash on delivery</option>
+        <option>UPI</option>
+        <option>Card</option>
+      </select>
+
+      <div class="error" id="errCart"></div>
+      <button class="order-btn" onclick="placeOrder()">Place Order</button>
+    </div>
+
+  </div>
+
+  <!-- Order confirmed popup -->
+  <div class="popup-bg" id="popup">
+    <div class="popup-box">
+      <div class="tick">&#10003;</div>
+      <h2>Order Confirmed!</h2>
+      <p id="popupMessage"></p>
+      <p><b>Order ID:</b> <span id="orderId"></span></p>
+      <p><b>Total:</b> <span id="popupTotal"></span></p>
+      <button class="done-btn" onclick="closePopup()">Done</button>
+    </div>
+  </div>
 
 <script>
+  // Food items list
+  var foods = [
+    { id: 1,  name: "Chicken Biryani",      price: 220, emoji: "🍛", desc: "Spiced rice with chicken" },
+    { id: 2,  name: "Paneer Butter Masala", price: 190, emoji: "🧈", desc: "Creamy paneer gravy" },
+    { id: 3,  name: "Veg Fried Rice",       price: 140, emoji: "🍚", desc: "Rice with vegetables" },
+    { id: 4,  name: "Masala Dosa",          price: 90,  emoji: "🥞", desc: "Crispy dosa with masala" },
+    { id: 5,  name: "Idli (3 pcs)",         price: 60,  emoji: "⚪", desc: "Soft idli with sambar" },
+    { id: 6,  name: "Veg Burger",           price: 110, emoji: "🍔", desc: "Burger with veg patty" },
+    { id: 7,  name: "French Fries",         price: 80,  emoji: "🍟", desc: "Crispy potato fries" },
+    { id: 8,  name: "Margherita Pizza",     price: 240, emoji: "🍕", desc: "Cheese and tomato pizza" },
+    { id: 9,  name: "Gulab Jamun (2)",      price: 70,  emoji: "🍡", desc: "Sweet milk dumplings" },
+    { id: 10, name: "Chocolate Brownie",    price: 99,  emoji: "🍫", desc: "Soft chocolate brownie" },
+    { id: 11, name: "Filter Coffee",        price: 40,  emoji: "☕", desc: "South Indian coffee" },
+    { id: 12, name: "Fresh Lime Soda",      price: 50,  emoji: "🍋", desc: "Cool lime soda" }
+  ];
 
-let cart = [];
-let total = 0;
+  // Cart stores: id and quantity
+  var cart = [];
 
-function addToCart(name, price) {
+  // Show the menu on the page
+  function showMenu() {
+    var html = "";
+    for (var i = 0; i < foods.length; i++) {
+      html += '<div class="item">';
+      html += '<div class="emoji">' + foods[i].emoji + '</div>';
+      html += '<h3>' + foods[i].name + '</h3>';
+      html += '<p>' + foods[i].desc + '</p>';
+      html += '<div class="price">Rs. ' + foods[i].price + '</div><br>';
+      html += '<button class="add-btn" onclick="addToCart(' + foods[i].id + ')">Add</button>';
+      html += '</div>';
+    }
+    document.getElementById("menu").innerHTML = html;
+  }
 
-    cart.push({
-        name: name,
-        price: price
-    });
+  // Find the food by id
+  function getFood(id) {
+    for (var i = 0; i < foods.length; i++) {
+      if (foods[i].id == id) {
+        return foods[i];
+      }
+    }
+  }
 
-    total += price;
+  // Add an item to the cart
+  function addToCart(id) {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id == id) {
+        cart[i].qty = cart[i].qty + 1;
+        showCart();
+        return;
+      }
+    }
+    cart.push({ id: id, qty: 1 });
+    showCart();
+  }
 
-    displayCart();
+  // Remove one quantity of an item
+  function removeFromCart(id) {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id == id) {
+        cart[i].qty = cart[i].qty - 1;
+        if (cart[i].qty == 0) {
+          cart.splice(i, 1);
+        }
+        break;
+      }
+    }
+    showCart();
+  }
 
-    alert(name + " added to cart!");
-}
+  // Calculate the total price
+  function getTotal() {
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) {
+      total = total + getFood(cart[i].id).price * cart[i].qty;
+    }
+    return total;
+  }
 
-function displayCart() {
+  // Count the total items
+  function getCount() {
+    var count = 0;
+    for (var i = 0; i < cart.length; i++) {
+      count = count + cart[i].qty;
+    }
+    return count;
+  }
 
-    let cartItems = document.getElementById("cart-items");
+  // Show the cart on the page
+  function showCart() {
+    var html = "";
+    if (cart.length == 0) {
+      html = "Your cart is empty.";
+    }
+    for (var i = 0; i < cart.length; i++) {
+      var food = getFood(cart[i].id);
+      html += '<div class="cart-row">';
+      html += food.name + ' &nbsp; ';
+      html += '<button class="small-btn" onclick="removeFromCart(' + food.id + ')">-</button> ';
+      html += cart[i].qty;
+      html += ' <button class="small-btn" onclick="addToCart(' + food.id + ')">+</button>';
+      html += ' &nbsp; Rs. ' + (food.price * cart[i].qty);
+      html += '</div>';
+    }
+    document.getElementById("cartItems").innerHTML = html;
+    document.getElementById("total").innerHTML = "Rs. " + getTotal();
+    document.getElementById("cartCount").innerHTML = getCount() + " items";
+  }
 
-    if (cart.length === 0) {
-        cartItems.innerHTML = "Your cart is empty.";
-    } else {
+  // Place the order
+  function placeOrder() {
+    var name = document.getElementById("name").value;
+    var phone = document.getElementById("phone").value;
+    var address = document.getElementById("address").value;
+    var payment = document.getElementById("payment").value;
+    var valid = true;
 
-        cartItems.innerHTML = "";
+    // Clear old errors
+    document.getElementById("errName").innerHTML = "";
+    document.getElementById("errPhone").innerHTML = "";
+    document.getElementById("errAddress").innerHTML = "";
+    document.getElementById("errCart").innerHTML = "";
 
-        cart.forEach((item, index) => {
-
-            cartItems.innerHTML += `
-                <p>
-                    ${index + 1}. ${item.name}
-                    - ₹${item.price}
-                    <button onclick="removeItem(${index})">
-                        Remove
-                    </button>
-                </p>
-            `;
-
-        });
+    // Check each field
+    if (name.length < 2) {
+      document.getElementById("errName").innerHTML = "Please enter your name.";
+      valid = false;
+    }
+    if (phone.length != 10 || isNaN(phone)) {
+      document.getElementById("errPhone").innerHTML = "Enter a 10 digit phone number.";
+      valid = false;
+    }
+    if (address.length < 8) {
+      document.getElementById("errAddress").innerHTML = "Please enter your full address.";
+      valid = false;
+    }
+    if (cart.length == 0) {
+      document.getElementById("errCart").innerHTML = "Please add at least one item.";
+      valid = false;
     }
 
-    document.getElementById("total").innerText = total;
-}
+    // If all fields are good, show the popup
+    if (valid == true) {
+      var orderId = "QB" + Math.floor(100000 + Math.random() * 900000);
+      document.getElementById("popupMessage").innerHTML =
+        "Thank you, " + name + "! Your food will arrive in about 30 minutes. Payment: " + payment;
+      document.getElementById("orderId").innerHTML = orderId;
+      document.getElementById("popupTotal").innerHTML = "Rs. " + getTotal();
+      document.getElementById("popup").style.display = "block";
+    }
+  }
 
-function removeItem(index) {
+  // Close the popup and clear everything
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    cart = [];
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("address").value = "";
+    showCart();
+  }
 
-    total -= cart[index].price;
-
-    cart.splice(index, 1);
-
-    displayCart();
-}
-
+  // Run when the page opens
+  showMenu();
+  showCart();
 </script>
 
 </body>
